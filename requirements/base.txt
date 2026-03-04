@@ -1,0 +1,19 @@
+# Core
+Django==4.2.10
+python-dotenv==1.0.0
+Pillow==10.2.0
+
+# Database - используем новый psycopg 3
+psycopg[binary]==3.1.8
+
+# DRF и JWT
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
+
+# Твои фишки с документами
+WeasyPrint==60.2
+python-docx==1.1.0
+
+# Утилиты
+django-widget-tweaks==1.5.0
+django-cleanup==8.1.0  # автоудаление старых файлов
