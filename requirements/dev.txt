@@ -1,0 +1,15 @@
+-r base.txt
+
+# Отладка
+django-debug-toolbar==4.3.0
+django-extensions==3.2.3
+
+# Линтеры (опционально, но полезно)
+black==24.2.0
+flake8==7.0.0
+isort==5.13.2
+
+# Тесты
+pytest==8.0.2
+pytest-django==4.8.0
+model-bakery==1.18.0
