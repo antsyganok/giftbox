@@ -1,2 +1,2 @@
 # giftbox
-base demonstration project internet shop
+base demonstration project internet shop!
