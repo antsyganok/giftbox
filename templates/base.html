@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru" data-bs-theme="{{ request.session.dark_mode|yesno:'dark,light' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Каталог{% endblock %} :: GiftBox</title>
+
+    <!-- SEO мета-теги -->
+    {% block meta %}
+    <meta name="description" content="GiftBox - магазин подарков на любой вкус">
+    <meta name="keywords" content="подарки, сувениры, подарки на праздник">
+    {% endblock %}
+
+    <!-- Favicon блок (всё что у тебя есть) -->
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'img/favicon-32x32.png' %}" type="image/png" sizes="32x32">
+    <link rel="icon" href="{% static 'img/favicon-16x16.png' %}" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <link rel="manifest" href="{% static 'img/site.webmanifest' %}">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'img/200x200.png' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <!-- CSS переменные -->
+    <style>
+        :root {
+            --card-shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --card-shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #2d3748;
+            --transition-base: all 0.2s ease-in-out;
+        }
+    </style>
+
+    <!-- Bootstrap и пользовательские стили -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'css/fonts.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'catalog:index' %}">
+                🎁 GiftBox
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'catalog:index' %}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'catalog:category_list' %}">Категории</a>
+                    </li>
+                    <!-- Кнопка тёмной темы -->
+                    <li class="nav-item">
+                        <button class="btn btn-link nav-link" id="darkModeToggle">
+                            <i class="bi {% if request.session.dark_mode %}bi-sun{% else %}bi-moon-stars{% endif %}"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="flex-grow-1">
+        <div class="container my-4">
+            <!-- Сообщения (django messages) -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Хлебные крошки (опционально) -->
+            {% block breadcrumbs %}{% endblock %}
+
+            <!-- Основной контент страницы -->
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>🎁 GiftBox</h5>
+                    <p>Магазин подарков на Django</p>
+                </div>
+                <div class="col-md-3">
+                    <h6>Навигация</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'catalog:index' %}" class="text-white-50">Главная</a></li>
+                        <li><a href="{% url 'catalog:category_list' %}" class="text-white-50">Категории</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Контакты</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-envelope"></i> support@giftbox.ru</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4">
+            <div class="text-center">
+                <small>&copy; {% now "Y" %} GiftBox. Все права защищены.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Валидация форм -->
+    <script>
+        (function() {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+
+    <!-- Переключение тёмной темы -->
+    <script>
+        document.getElementById('darkModeToggle')?.addEventListener('click', function() {
+            fetch("{% url 'core:toggle_dark_mode' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            }).then(() => {
+                location.reload();
+            });
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

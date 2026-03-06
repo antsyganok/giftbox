@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+    <title>Страница не найдена (404)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            line-height: 1.6;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        h1 { color: #ff0000; }
+        h3 { color: #5bc0de; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .path {
+            display: inline-block;
+            margin: 15px 0;
+            padding: 8px 12px;
+            background: #2a2a2a;
+            color: #e0e0e0;
+            border-radius: 4px;
+            word-break: break-all;
+            border: 1px solid #333;
+        }
+        a {
+            color: #5bc0de;
+        }
+        a:hover {
+            color: #31b0d5;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #1e1e1e;
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+        .btn:hover {
+            background: #d9534f;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> 404 </h1>
+        <h3>Страница "{{ request.path }}" не найдена</h3>
+        <a href="/" class="btn">На главную</a>
+</body>
+</html>

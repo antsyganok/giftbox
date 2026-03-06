@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.core.apps.CoreConfig',
+    'apps.catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
@@ -99,19 +102,44 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+    messages.INFO: 'info',
+    messages.WARNING: 'warning',
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+# Форматы отображения
+DATE_FORMAT = 'd E Y'  # 5 марта 2026
+TIME_FORMAT = 'H:i'    # 14:30
+DATETIME_FORMAT = 'd E Y H:i'  # 5 марта 2026 14:30
+
+# Для административной панели
+SHORT_DATE_FORMAT = 'd.m.Y'      # 05.03.2026
+SHORT_DATETIME_FORMAT = 'd.m.Y H:i'  # 05.03.2026 14:30
+
+# Для отображения цен
+USE_THOUSAND_SEPARATOR = True  # разделять тысячи пробелом
+THOUSAND_SEPARATOR = ' '       # пробел как разделитель
+DECIMAL_SEPARATOR = ','        # запятая как десятичный разделитель (для цен)
+NUMBER_GROUPING = 3            # группировка по 3 цифры
+
+# Понедельник - первый день недели (европейский стандарт)
+FIRST_DAY_OF_WEEK = 1  # 0 - воскресенье, 1 - понедельник
 
 
 # Static files (CSS, JavaScript, Images)

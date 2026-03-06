@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head>
+    <title>Ошибка безопасности (403 CSRF)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            line-height: 1.6;
+            background-color: #202225;
+            color: #e0e0e0;
+        }
+        h1 { color: #f0ad4e; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background: #1e1e1e;
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+        .btn:hover {
+            background: #d9534f;
+            color: white;
+        }
+        .tips {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        .contact-block {
+            margin: 25px 0;
+            padding: 15px;
+            background: #1e1e1e;
+            border-left: 4px solid #f0ad4e;
+        }
+        .contact-email {
+            color: #5bc0de;
+            font-weight: bold;
+        }
+        code {
+            background: #333;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ошибка проверки безопасности</h1>
+        <p>Возникла проблема с подтверждением вашего запроса.</p>
+
+        <div class="tips">
+            <h3>Как исправить:</h3>
+            <p>1. Обновить страницу:
+                <br><small>(Windows/Linux: <code>F5</code> или <code>Ctrl+R</code>, Mac: <code>⌘+R</code>)</small>
+            </p>
+            <p>2. Очистить cookies сайта</p>
+            <p>3. Повторить действие</p>
+        </div>
+
+        <div class="contact-block">
+            <p>Если проблема повторяется, свяжитесь с поддержкой:</p>
+            <a href="mailto:{{ support_email }}?subject=Проблема с CSRF" class="contact-email">
+                Напишите нам
+            </a>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/" class="btn">На главную</a>
+            <a href="#" onclick="location.reload(); return false;" class="btn">Обновить</a>
+        </div>
+    </div>
+</body>
+</html>
