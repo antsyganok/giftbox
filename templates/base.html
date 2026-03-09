@@ -45,38 +45,10 @@
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Навигационная панель -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'catalog:index' %}">
-                🎁 GiftBox
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'catalog:index' %}">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'catalog:category_list' %}">Категории</a>
-                    </li>
-                    <!-- Кнопка тёмной темы -->
-                    <li class="nav-item">
-                        <button class="btn btn-link nav-link" id="darkModeToggle">
-                            <i class="bi {% if request.session.dark_mode %}bi-sun{% else %}bi-moon-stars{% endif %}"></i>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    {% include 'core/header.html' %}
 
-    <!-- Основной контент -->
     <main class="flex-grow-1">
         <div class="container my-4">
-            <!-- Сообщения (django messages) -->
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
@@ -86,42 +58,12 @@
                 {% endfor %}
             {% endif %}
 
-            <!-- Хлебные крошки (опционально) -->
             {% block breadcrumbs %}{% endblock %}
-
-            <!-- Основной контент страницы -->
             {% block content %}{% endblock %}
         </div>
     </main>
 
-    <!-- Футер -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>🎁 GiftBox</h5>
-                    <p>Магазин подарков на Django</p>
-                </div>
-                <div class="col-md-3">
-                    <h6>Навигация</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'catalog:index' %}" class="text-white-50">Главная</a></li>
-                        <li><a href="{% url 'catalog:category_list' %}" class="text-white-50">Категории</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h6>Контакты</h6>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-envelope"></i> support@giftbox.ru</li>
-                    </ul>
-                </div>
-            </div>
-            <hr class="mt-4">
-            <div class="text-center">
-                <small>&copy; {% now "Y" %} GiftBox. Все права защищены.</small>
-            </div>
-        </div>
-    </footer>
+    {% include 'core/footer.html' %}
 
     <!-- Скрипты -->
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>

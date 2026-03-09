@@ -1,10 +1,108 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Giftbox</title>
-</head>
-<body>
-    <h1>Каталог Giftbox</h1>
-    <p>Работает!</p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero секция -->
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold text-body-emphasis">🎁 GiftBox</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">
+                Магазин подарков на любой вкус. Здесь вы найдёте идеальные подарки
+                для близких, друзей и коллег.
+            </p>
+        </div>
+    </div>
+
+    <!-- Новинки -->
+    <h2 class="mb-4">Новинки</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+        {% for product in products %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <!-- Изображение товара -->
+                {% if product.image %}
+                <img src="{{ product.image.url }}"
+                     class="card-img-top"
+                     alt="{{ product.name }}"
+                     style="height: 200px; object-fit: cover;">
+                {% else %}
+                <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                     style="height: 200px;">
+                    <span class="text-muted">Нет изображения</span>
+                </div>
+                {% endif %}
+
+                <!-- Тело карточки -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-truncate">
+                        {{ product.description|default:"Нет описания" }}
+                    </p>
+                </div>
+
+                <!-- Футер карточки с ценой и кнопкой -->
+                <div class="card-footer bg-transparent border-top-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 mb-0">{{ product.price }} ₽</span>
+                        <a href="{{ product.get_absolute_url }}"
+                           class="btn btn-outline-primary btn-sm">
+                            Подробнее
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                <i class="bi bi-info-circle me-2"></i>
+                Товаров пока нет.
+                <a href="{% url 'admin:catalog_product_add' %}" class="alert-link">
+                    Добавьте товары в админке
+                </a>.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Категории (быстрый доступ) -->
+    {% if categories %}
+    <h2 class="mb-4">Категории</h2>
+    <div class="row row-cols-2 row-cols-md-4 g-4 mb-5">
+        {% for category in categories %}
+        <div class="col">
+            <a href="{% url 'catalog:category' category.slug %}"
+               class="text-decoration-none">
+                <div class="card bg-light text-center h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-dark">{{ category.name }}</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Анимация появления карточек (опционально)
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.3s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    });
+</script>
+{% endblock %}
