@@ -1,0 +1,47 @@
+/* Основные стили проекта */
+
+/* Переменные */
+:root {
+    --primary-color: #5a4fcf;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+}
+
+/* Кастомные стили для карточек товаров */
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Стили для главной страницы */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color), #7c6eff);
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+}
+
+/* Утилиты */
+.text-primary-gradient {
+    background: linear-gradient(135deg, var(--primary-color), #7c6eff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
