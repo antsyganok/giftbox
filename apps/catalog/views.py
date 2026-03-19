@@ -10,3 +10,11 @@ def index(request):
         'products': products,
         'categories': categories,
     })
+
+
+def category(request):
+    """Страница с категориями товаров"""
+    categories = Category.objects.all()
+    return render(request, 'catalog/categories.html', {
+        'categories': categories,
+    })
